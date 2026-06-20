@@ -1,0 +1,14 @@
+name: 'tungsten_analytics'
+version: '1.0.0'
+config-version: 2
+
+profile: 'tungsten_analytics'
+
+model-paths: ["models"]
+
+models:
+  tungsten_analytics:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

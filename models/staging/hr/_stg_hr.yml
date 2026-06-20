@@ -1,0 +1,30 @@
+models:
+  - name: stg_tungsten__employees
+    description: The grain of this table is one employee per row
+    columns:
+      - name: employee_id
+        description: Primary key for employees table
+        tests:
+          - unique
+          - not_null
+      - name: employee_name
+        tests:
+          - not_null
+      - name: department_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__departments')
+                field: department_id
+
+  - name: stg_tungsten__departments
+    description: One department per row
+    columns:
+      - name: department_id
+        description: Primary key for departments table
+        tests:
+          - unique
+          - not_null
+      - name: department_name
+        tests:
+          - not_null

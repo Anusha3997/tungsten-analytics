@@ -1,0 +1,69 @@
+models:
+  - name: stg_tungsten__customers
+    description: The grain of this table is one customer per row
+    columns:
+      - name: customer_id
+        description: Primary key for customers table
+        tests:
+          - unique
+          - not_null
+      - name: customer_name
+        tests:
+          - not_null
+
+  - name: stg_tungsten__orders
+    description: One order per row
+    columns:
+      - name: order_id
+        description: Primary key for orders table
+        tests:
+         - unique
+         - not_null
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__customers')
+                field: customer_id
+      - name: employee_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__employees')
+                field: employee_id
+
+  - name: stg_tungsten__order_details
+    description: One order item per row
+    columns:
+      - name: order_detail_id
+        description: Primary key for order items table
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__orders')
+                field: order_id
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__products')
+                field: product_id
+  
+  - name: stg_tungsten__membership
+    description: One customer membership per row
+    columns:
+      - name: membership_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__customers')
+                field: customer_id
+  

@@ -1,0 +1,43 @@
+models:
+  - name: stg_tungsten__products
+    description: The grain of this table is one product per row
+    columns:
+      - name: product_id
+        description: Primary key for products table
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        tests:
+          - not_null
+      - name: supplier_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__suppliers')
+                field: supplier_id
+
+  - name: stg_tungsten__inventory
+    description: One inventory item per row
+    columns:
+      - name: inventory_id
+        description: Primary key for inventory table
+        tests:
+         - unique
+         - not_null
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tungsten__products')
+                field: product_id
+
+  - name: stg_tungsten__supplier
+    description: One supplier per row
+    columns:
+      - name: supplier_id
+        description: Primary key for suppliers table
+        tests:
+          - unique
+          - not_null
+  

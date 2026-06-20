@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: raw_sales
+    database: TUNGSTEN_RAW
+    schema: SALES
+    tables:
+      - name: customers
+      - name: orders
+      - name: order_details
+      - name: membership
+    
+  - name: raw_inventory
+    database: TUNGSTEN_RAW  
+    schema: INVENTORY
+    tables:
+      - name: products
+      - name: inventory
+      - name: suppliers
+  
+  - name: raw_hr
+    database: TUNGSTEN_RAW
+    schema: HR
+    tables:
+      - name: employees
+      - name: departments
