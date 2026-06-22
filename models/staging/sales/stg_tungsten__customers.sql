@@ -14,7 +14,7 @@ renamed as (
         address,
         city,
         state,
-        mem_id,
+        mem_id as membership_id,
         total_spent
 
     from source
