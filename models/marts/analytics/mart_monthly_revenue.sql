@@ -4,32 +4,17 @@ with sales as (
 
 ),
 
-dates as (
-
-    select * from {{ ref('dim_date') }}
-
-),
-
 final as (
 
     select
-        d.year,
-        d.month_number,
-        d.month_name,
+        date_trunc('month', date_key) as month,
+        sum(sales_amount) as revenue
 
-        sum(s.sales_amount) as revenue
+    from sales
 
-    from sales s
-    left join dates d
-        on s.date_key = d.date_key
-
-    group by
-        d.year,
-        d.month_number,
-        d.month_name
+    group by 1
 
 )
 
-select *
-from final
-order by year, month_number
+select * from final
+order by month
